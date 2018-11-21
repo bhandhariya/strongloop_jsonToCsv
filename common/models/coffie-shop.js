@@ -52,7 +52,7 @@ module.exports = function(Coffieshop) {
         Coffieshop.find(function(err,instance){
             var result=instance;
             var contacts=result;
-          //    var fields=['first_name','last_name','age','email','address','id']
+         //// var fields=['first_name','last_name','age','email','address','id'];
           var myData=instance;
           var json2csvParser =new Json2csvParser({fields});
           var csv=json2csvParser.parse(myData);
@@ -112,6 +112,27 @@ module.exports = function(Coffieshop) {
             returns:{arg:'name',type:'string'}
         }
     )
+
+    Coffieshop.getFilterData=function(filter,cb){
+      var data={};
+      data.where=filter;
+      Coffieshop.find(data,function(err,result){
+        if(err){
+          cb(err,null)
+        }else{
+          cb(null,result)
+        }
+      })
+    }
+
+    
+	Coffieshop.remoteMethod('getFilterData',{
+		http:{path:'/getFilterData',verb:'get'},
+		accepts:{arg:'filter',type:'object',source:'body'},
+            returns:{arg:'value',type:'object'}
+	})
+
+
 
 
 };
