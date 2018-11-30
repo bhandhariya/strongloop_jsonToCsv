@@ -1,1 +1,0 @@
-exports.mandrill_key="YqIBzyvkFNMbRYxL92oqIA";
